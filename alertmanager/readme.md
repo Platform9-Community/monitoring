@@ -47,19 +47,17 @@ Create a new file (name is not important) where we will configure the Slack Aler
 
 ```yaml
 global:
-slack_api_url: '<<your slack webhook URL>>'
+  slack_api_url: 'your slack webhook url'
 
 route:
-receiver: 'slack-notifications'
-group_by: [alertname, datacenter, app]
+  receiver: 'slack-notifications'
+  group_by: [alertname, datacenter, app]
 
 receivers:
-
-name: 'slack-notifications'
-slack_configs:
-
-channel: '#alerts-pmk-freedom'. << update with your Slack channel name
-text: 'https://platform9.com/wiki/alerts{ .GroupLabels.app }}/{{ .GroupLabels.alertname }}' << update with whatever you want to point to
+- name: 'slack-notifications'
+  slack_configs:
+  - channel: '#alerts-pmk-freedom'
+    text: 'https://platform9.com/wiki/alerts/{{ .GroupLabels.app }}/{{ .GroupLabels.alertname }}' << update with whatever you want to point to
 ```
 
 This is a very easy notification template. You can find here more examples: https://prometheus.io/docs/alerting/notification_examples/
